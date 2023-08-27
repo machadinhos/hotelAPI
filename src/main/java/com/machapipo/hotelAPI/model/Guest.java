@@ -18,7 +18,7 @@ public class Guest extends AbstractModel {
     @Column
     private String phoneNumber;
     @OneToOne
-    private com.example.demo.model.Room room;
+    private Room room;
 
 
     public String getFirstName () {
@@ -69,13 +69,13 @@ public class Guest extends AbstractModel {
     }
 
 
-    public com.example.demo.model.Room getRoom () {
+    public Room getRoom () {
 
         return room;
     }
 
 
-    public void setRoom (com.example.demo.model.Room room) {
+    public void setRoom (Room room) {
 
         this.room = room;
     }

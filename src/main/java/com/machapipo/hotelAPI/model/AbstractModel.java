@@ -6,7 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import java.util.Date;
 
 @MappedSuperclass
-public abstract class AbstractModel implements com.example.demo.model.Model {
+public abstract class AbstractModel implements Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

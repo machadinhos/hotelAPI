@@ -2,10 +2,23 @@ package com.machapipo.hotelAPI.command;
 
 public class RoomDto {
 
+    private Long id;
     private Integer roomNumber;
     private Double price;
     private Boolean isAvailable;
     private String roomType;
+
+
+    public Long getId () {
+
+        return id;
+    }
+
+
+    public void setId (Long id) {
+
+        this.id = id;
+    }
 
 
     public Integer getRoomNumber () {

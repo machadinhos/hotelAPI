@@ -1,10 +1,5 @@
 package com.machapipo.hotelAPI.command;
 
-import com.machapipo.hotelAPI.model.RoomType;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-
 public class RoomDto {
 
     private Integer roomNumber;

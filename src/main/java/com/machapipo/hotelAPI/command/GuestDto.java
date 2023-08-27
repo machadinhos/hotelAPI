@@ -1,7 +1,5 @@
 package com.machapipo.hotelAPI.command;
 
-import jakarta.persistence.Column;
-
 public class GuestDto {
 
     private String firstName;

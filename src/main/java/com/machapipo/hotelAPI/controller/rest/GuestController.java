@@ -89,6 +89,8 @@ public class GuestController {
                 return ResponseEntity.notFound().build();
             }
 
+            guestDto.setId(id);
+
             guest = Objects.requireNonNull(guestDtoToGuestConverter.convert(guestDto));
 
             guest = guestRepo.save(guest);

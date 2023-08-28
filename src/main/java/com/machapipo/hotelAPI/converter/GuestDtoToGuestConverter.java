@@ -23,6 +23,7 @@ public class GuestDtoToGuestConverter extends AbstractConverter<GuestDto, Guest>
     public Guest convert (GuestDto source) {
 
         Guest guest;
+
         if (source.getId() != null) {
             guest = guestRepo.findById(source.getId()).orElse(new Guest());
         } else {

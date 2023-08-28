@@ -2,7 +2,9 @@ package com.machapipo.hotelAPI.converter;
 
 import com.machapipo.hotelAPI.command.RoomDto;
 import com.machapipo.hotelAPI.model.Room;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RoomToRoomDtoConverter extends AbstractConverter<Room, RoomDto> {
 
     @Override

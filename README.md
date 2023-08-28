@@ -4,17 +4,18 @@
 
 - [Description](#description)
 - [Installation](#installation)
-  - [Prerequisites](#prerequisites)
-  - [Steps](#steps)
+    - [Prerequisites](#prerequisites)
+    - [Steps](#steps)
 - [Endpoints](#endpoints)
-  - [Rooms](#rooms)
-  - [Guests](#guests)
+    - [Rooms](#rooms)
+    - [Guests](#guests)
 - [Technologies](#technologies)
 
 ## Description
 
 This is the API portion of the hotel management system.
 It is a RESTful API that allows hotel staff to:
+
 - Create, Read, Update, and Delete (CRUD) hotel rooms
 - Create, Read, Update, and Delete (CRUD) hotel guests
 

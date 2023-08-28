@@ -9,10 +9,12 @@ public enum RoomType {
 
     private final String roomType;
 
-    RoomType(String roomType) {
+
+    RoomType (String roomType) {
 
         this.roomType = roomType;
     }
+
 
     public String getRoomType () {
 

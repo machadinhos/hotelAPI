@@ -4,16 +4,16 @@ import java.util.Date;
 
 public interface Model {
 
-    Long getId();
+    Long getId ();
 
-    void setId(Long id);
+    void setId (Long id);
 
-    Date getCreatedDate();
+    Date getCreatedDate ();
 
-    void setCreatedDate(Date createdDate);
+    void setCreatedDate (Date createdDate);
 
-    Integer getVersion();
+    Integer getVersion ();
 
-    void setVersion(Integer version);
+    void setVersion (Integer version);
 
 }

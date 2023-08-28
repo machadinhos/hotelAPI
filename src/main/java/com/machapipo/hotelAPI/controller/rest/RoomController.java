@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping({"/api/rooms", "/api/room"})
+@RequestMapping({"/hotel/api/rooms", "/hotel/api/room"})
 public class RoomController {
 
 }

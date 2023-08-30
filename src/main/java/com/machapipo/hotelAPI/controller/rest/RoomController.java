@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, origins = "*")
 @RequestMapping({"/hotel/api/rooms", "/hotel/api/room"})
 public class RoomController {
 

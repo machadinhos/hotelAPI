@@ -33,6 +33,8 @@ It is a RESTful API that allows hotel staff to:
 
 ## Endpoints
 
+All endpoints are prefixed with `/hotel/api`.
+
 ### Rooms
 
 - `GET /rooms` - Returns a list of all rooms
@@ -62,7 +64,6 @@ It is a RESTful API that allows hotel staff to:
 - Spring Data JPA
 - MySQL
 
-## Authors
+## Author
 
 - [machadinhos](https://github.com/machadinhos)
-- [filipe-silva-27](https://github.com/filipe-silva-27)

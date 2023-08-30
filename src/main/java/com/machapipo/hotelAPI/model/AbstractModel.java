@@ -1,9 +1,6 @@
 package com.machapipo.hotelAPI.model;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.util.Date;
 
 @MappedSuperclass
 public abstract class AbstractModel implements Model {
@@ -14,8 +11,6 @@ public abstract class AbstractModel implements Model {
 
     @Version
     private Integer version;
-    @CreatedDate
-    private Date createdDate;
 
 
     @Override
@@ -43,20 +38,6 @@ public abstract class AbstractModel implements Model {
     public void setVersion (Integer version) {
 
         this.version = version;
-    }
-
-
-    @Override
-    public Date getCreatedDate () {
-
-        return createdDate;
-    }
-
-
-    @Override
-    public void setCreatedDate (Date createdDate) {
-
-        this.createdDate = createdDate;
     }
 
 }

@@ -33,6 +33,7 @@ public class RoomDtoToRoomConverter extends AbstractConverter<RoomDto, Room> {
         room.setRoomNumber(source.getRoomNumber());
         room.setPrice(source.getPrice());
         room.setAvailable(source.getAvailable());
+
         try {
             room.setRoomType(RoomType.valueOf(source.getRoomType()));
         } catch (IllegalArgumentException ignored) {

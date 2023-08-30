@@ -4,7 +4,6 @@ public enum RoomType {
 
     Standard("Standard"),
     Deluxe("Deluxe"),
-    SuperDeluxe("Super Deluxe"),
     Suite("Suite");
 
     private final String roomType;

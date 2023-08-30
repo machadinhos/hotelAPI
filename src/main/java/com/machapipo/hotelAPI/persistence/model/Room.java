@@ -1,4 +1,4 @@
-package com.machapipo.hotelAPI.model;
+package com.machapipo.hotelAPI.persistence.model;
 
 import jakarta.persistence.*;
 

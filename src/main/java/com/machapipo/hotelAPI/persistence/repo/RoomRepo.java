@@ -1,6 +1,6 @@
-package com.machapipo.hotelAPI.repo;
+package com.machapipo.hotelAPI.persistence.repo;
 
-import com.machapipo.hotelAPI.model.Room;
+import com.machapipo.hotelAPI.persistence.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

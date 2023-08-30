@@ -1,9 +1,9 @@
 package com.machapipo.hotelAPI.service;
 
 import com.machapipo.hotelAPI.exception.InvalidGuest;
-import com.machapipo.hotelAPI.model.Guest;
-import com.machapipo.hotelAPI.repo.GuestRepo;
-import com.machapipo.hotelAPI.repo.RoomRepo;
+import com.machapipo.hotelAPI.persistence.model.Guest;
+import com.machapipo.hotelAPI.persistence.repo.GuestRepo;
+import com.machapipo.hotelAPI.persistence.repo.RoomRepo;
 import com.machapipo.hotelAPI.utils.ModelValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,9 +87,9 @@ public class GuestService implements GenericService<Guest> {
 
 
     @Override
-    public void delete (Long id) {
+    public void delete (Guest guest) {
 
-        guestRepo.deleteById(id);
+        guestRepo.delete(guest);
     }
 
 }

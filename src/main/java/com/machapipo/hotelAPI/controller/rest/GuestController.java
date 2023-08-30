@@ -3,8 +3,8 @@ package com.machapipo.hotelAPI.controller.rest;
 import com.machapipo.hotelAPI.command.GuestDto;
 import com.machapipo.hotelAPI.converter.GuestDtoToGuestConverter;
 import com.machapipo.hotelAPI.converter.GuestToGuesDtoConverter;
-import com.machapipo.hotelAPI.model.Guest;
-import com.machapipo.hotelAPI.repo.GuestRepo;
+import com.machapipo.hotelAPI.persistence.model.Guest;
+import com.machapipo.hotelAPI.service.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +17,16 @@ import java.util.Objects;
 @RequestMapping({"/hotel/api/guests", "/hotel/api/guest"})
 public class GuestController {
 
-    private GuestRepo guestRepo;
+    private GuestService guestService;
 
     private GuestToGuesDtoConverter guestToGuesDtoConverter;
     private GuestDtoToGuestConverter guestDtoToGuestConverter;
 
 
     @Autowired
-    public void setGuestRepo (GuestRepo guestRepo) {
+    public void setGuestRepo (GuestService guestService) {
 
-        this.guestRepo = guestRepo;
+        this.guestService = guestService;
     }
 
 
@@ -47,7 +47,7 @@ public class GuestController {
     @GetMapping({"/", "", "/list"})
     public ResponseEntity<List<GuestDto>> getGuests () {
 
-        List<Guest> guests = guestRepo.findAll();
+        List<Guest> guests = guestService.getAll();
 
         return ResponseEntity.ok(guestToGuesDtoConverter.convert(guests));
     }
@@ -56,10 +56,9 @@ public class GuestController {
     @GetMapping("/{id}")
     public ResponseEntity<GuestDto> getGuest (@PathVariable Long id) {
 
-        Guest guest = guestRepo.findById(id).orElse(null);
+        Guest guest = guestService.getById(id);
 
         if (guest == null) {
-            System.out.println("GuestController.getGuest: guest == null");
             return ResponseEntity.notFound().build();
         }
 
@@ -71,7 +70,7 @@ public class GuestController {
     public ResponseEntity<GuestDto> createGuest (@RequestBody GuestDto guestDto) {
 
         try {
-            Guest guest = guestRepo.save(Objects.requireNonNull(guestDtoToGuestConverter.convert(guestDto)));
+            Guest guest = guestService.create(Objects.requireNonNull(guestDtoToGuestConverter.convert(guestDto)));
 
             return ResponseEntity.ok(guestToGuesDtoConverter.convert(guest));
         } catch (Exception e) {
@@ -84,7 +83,7 @@ public class GuestController {
     public ResponseEntity<GuestDto> updateGuest (@PathVariable Long id, @RequestBody GuestDto guestDto) {
 
         try {
-            Guest guest = guestRepo.findById(id).orElse(null);
+            Guest guest = guestService.getById(id);
 
             if (guest == null) {
                 return ResponseEntity.notFound().build();
@@ -94,7 +93,7 @@ public class GuestController {
 
             guest = Objects.requireNonNull(guestDtoToGuestConverter.convert(guestDto));
 
-            guest = guestRepo.save(guest);
+            guest = guestService.update(guest);
 
             return ResponseEntity.ok(guestToGuesDtoConverter.convert(guest));
         } catch (Exception e) {
@@ -107,13 +106,13 @@ public class GuestController {
     public ResponseEntity<Void> deleteGuest (@PathVariable Long id) {
 
         try {
-            Guest guest = guestRepo.findById(id).orElse(null);
+            Guest guest = guestService.getById(id);
 
             if (guest == null) {
                 return ResponseEntity.notFound().build();
             }
 
-            guestRepo.delete(guest);
+            guestService.delete(guest);
 
             return ResponseEntity.ok().build();
         } catch (Exception e) {

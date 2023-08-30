@@ -1,7 +1,7 @@
 package com.machapipo.hotelAPI.utils;
 
-import com.machapipo.hotelAPI.model.Guest;
-import com.machapipo.hotelAPI.model.Room;
+import com.machapipo.hotelAPI.persistence.model.Guest;
+import com.machapipo.hotelAPI.persistence.model.Room;
 
 import java.util.regex.Pattern;
 

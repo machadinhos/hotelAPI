@@ -1,7 +1,7 @@
 package com.machapipo.hotelAPI.converter;
 
 import com.machapipo.hotelAPI.command.RoomDto;
-import com.machapipo.hotelAPI.model.Room;
+import com.machapipo.hotelAPI.persistence.model.Room;
 import org.springframework.stereotype.Component;
 
 @Component

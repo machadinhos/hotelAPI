@@ -99,7 +99,6 @@ public class GuestController {
 
             return ResponseEntity.ok(response);
         } catch (InvalidModel e) {
-
             response.setMessage(e.getMessage());
             response.setSuccess(false);
 
@@ -132,7 +131,6 @@ public class GuestController {
 
             return ResponseEntity.ok(response);
         } catch (InvalidModel e) {
-
             response.setMessage(e.getMessage());
             response.setSuccess(false);
 
@@ -160,7 +158,6 @@ public class GuestController {
 
             return ResponseEntity.ok(response);
         } catch (InvalidModel e) {
-
             response.setMessage(e.getMessage());
             response.setSuccess(false);
 

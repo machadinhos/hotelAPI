@@ -52,8 +52,8 @@ public class RoomDtoToRoomConverter extends AbstractConverter<RoomDto, Room> {
 
         try {
             room.setRoomType(RoomType.valueOf(source.getRoomType()));
-        } catch (IllegalArgumentException ignored) {
-            throw new InvalidRoom();
+        } catch (Exception e) {
+            throw new InvalidRoom("Invalid room");
         }
 
         return room;

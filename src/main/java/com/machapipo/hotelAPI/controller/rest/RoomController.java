@@ -4,31 +4,31 @@ import com.machapipo.hotelAPI.command.RoomDto;
 import com.machapipo.hotelAPI.command.converter.RoomDtoToRoomConverter;
 import com.machapipo.hotelAPI.command.converter.RoomToRoomDtoConverter;
 import com.machapipo.hotelAPI.exception.InvalidModel;
+import com.machapipo.hotelAPI.exception.InvalidRoom;
 import com.machapipo.hotelAPI.persistence.model.Room;
-import com.machapipo.hotelAPI.persistence.repo.RoomRepo;
+import com.machapipo.hotelAPI.service.RoomService;
 import com.machapipo.hotelAPI.utils.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @CrossOrigin(methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, origins = "*")
 @RequestMapping({"/hotel/api/rooms", "/hotel/api/room"})
 public class RoomController {
 
-    private RoomRepo roomRepo;
+    private RoomService roomService;
 
     private RoomToRoomDtoConverter roomToRoomDtoConverter;
     private RoomDtoToRoomConverter roomDtoToRoomConverter;
 
 
     @Autowired
-    public void setRoomRepo (RoomRepo roomRepo) {
+    public void setRoomService (RoomService roomService) {
 
-        this.roomRepo = roomRepo;
+        this.roomService = roomService;
     }
 
 
@@ -51,7 +51,7 @@ public class RoomController {
 
         APIResponse<List<RoomDto>> response = new APIResponse<>();
 
-        List<Room> rooms = roomRepo.findAll();
+        List<Room> rooms = roomService.getAll();
 
         response.setSuccess(true);
         response.setMessage("Rooms found");
@@ -66,13 +66,10 @@ public class RoomController {
 
         APIResponse<RoomDto> response = new APIResponse<>();
 
-        Room room = roomRepo.findById(id).orElse(null);
+        Room room = roomService.getById(id);
 
         if (room == null) {
-            response.setSuccess(false);
-            response.setMessage("Room not found");
-
-            return ResponseEntity.ok(response);
+            throw new InvalidRoom("Room not found");
         }
 
         response.setSuccess(true);
@@ -91,7 +88,7 @@ public class RoomController {
         try {
             roomDto.setId(null);
 
-            Room room = roomRepo.save(Objects.requireNonNull(roomDtoToRoomConverter.convert(roomDto)));
+            Room room = roomService.create(roomDtoToRoomConverter.convert(roomDto));
 
             response.setSuccess(true);
             response.setMessage("Room created successfully");
@@ -113,15 +110,15 @@ public class RoomController {
         APIResponse<RoomDto> response = new APIResponse<>();
 
         try {
-            Room room = roomRepo.findById(id).orElse(null);
+            Room room = roomService.getById(id);
 
             if (room == null) {
-                return ResponseEntity.notFound().build();
+                throw new InvalidRoom("Room not found");
             }
 
-            room = Objects.requireNonNull(roomDtoToRoomConverter.convert(roomDto));
+            room = roomDtoToRoomConverter.convert(roomDto);
 
-            room = roomRepo.save(room);
+            room = roomService.update(room);
 
             response.setSuccess(true);
             response.setMessage("Room updated successfully");
@@ -143,13 +140,13 @@ public class RoomController {
         APIResponse<RoomDto> response = new APIResponse<>();
 
         try {
-            Room room = roomRepo.findById(id).orElse(null);
+            Room room = roomService.getById(id);
 
             if (room == null) {
-                return ResponseEntity.notFound().build();
+                throw new InvalidRoom("Room not found");
             }
 
-            roomRepo.delete(room);
+            roomService.delete(room);
 
             response.setSuccess(true);
             response.setMessage("Room deleted successfully");

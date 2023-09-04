@@ -3,6 +3,7 @@ package com.machapipo.hotelAPI.controller.rest;
 import com.machapipo.hotelAPI.command.GuestDto;
 import com.machapipo.hotelAPI.command.converter.GuestDtoToGuestConverter;
 import com.machapipo.hotelAPI.command.converter.GuestToGuesDtoConverter;
+import com.machapipo.hotelAPI.exception.InvalidGuest;
 import com.machapipo.hotelAPI.exception.InvalidModel;
 import com.machapipo.hotelAPI.persistence.model.Guest;
 import com.machapipo.hotelAPI.service.GuestService;
@@ -69,10 +70,7 @@ public class GuestController {
         Guest guest = guestService.getById(id);
 
         if (guest == null) {
-            response.setSuccess(false);
-            response.setMessage("Guest not found");
-
-            return ResponseEntity.ok(response);
+            throw new InvalidGuest("Guest not found");
         }
 
         response.setSuccess(true);
@@ -116,7 +114,7 @@ public class GuestController {
             Guest guest = guestService.getById(id);
 
             if (guest == null) {
-                return ResponseEntity.notFound().build();
+                throw new InvalidGuest("Guest not found");
             }
 
             guestDto.setId(id);
@@ -148,7 +146,7 @@ public class GuestController {
             Guest guest = guestService.getById(id);
 
             if (guest == null) {
-                return ResponseEntity.notFound().build();
+                throw new InvalidGuest("Guest not found");
             }
 
             guestService.delete(guest);

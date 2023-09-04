@@ -6,6 +6,7 @@ import com.machapipo.hotelAPI.command.converter.GuestToGuesDtoConverter;
 import com.machapipo.hotelAPI.exception.InvalidModel;
 import com.machapipo.hotelAPI.persistence.model.Guest;
 import com.machapipo.hotelAPI.service.GuestService;
+import com.machapipo.hotelAPI.utils.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,44 +47,71 @@ public class GuestController {
 
 
     @GetMapping({"/", "", "/list"})
-    public ResponseEntity<List<GuestDto>> getGuests () {
+    public ResponseEntity<APIResponse<List<GuestDto>>> getGuests () {
+
+        APIResponse<List<GuestDto>> response = new APIResponse<>();
 
         List<Guest> guests = guestService.getAll();
 
-        return ResponseEntity.ok(guestToGuesDtoConverter.convert(guests));
+        response.setSuccess(true);
+        response.setMessage("Guests found");
+        response.setData(guestToGuesDtoConverter.convert(guests));
+
+        return ResponseEntity.ok(response);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<GuestDto> getGuest (@PathVariable Long id) {
+    public ResponseEntity<APIResponse<GuestDto>> getGuest (@PathVariable Long id) {
+
+        APIResponse<GuestDto> response = new APIResponse<>();
 
         Guest guest = guestService.getById(id);
 
         if (guest == null) {
-            return ResponseEntity.notFound().build();
+            response.setSuccess(false);
+            response.setMessage("Guest not found");
+
+            return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.ok(guestToGuesDtoConverter.convert(guest));
+        response.setSuccess(true);
+        response.setMessage("Guest found");
+        response.setData(guestToGuesDtoConverter.convert(guest));
+
+        return ResponseEntity.ok(response);
     }
 
 
     @PostMapping({"/", ""})
-    public ResponseEntity<GuestDto> createGuest (@RequestBody GuestDto guestDto) {
+    public ResponseEntity<APIResponse<GuestDto>> createGuest (@RequestBody GuestDto guestDto) {
+
+        APIResponse<GuestDto> response = new APIResponse<>();
 
         try {
             guestDto.setId(null);
 
             Guest guest = guestService.create(Objects.requireNonNull(guestDtoToGuestConverter.convert(guestDto)));
 
-            return ResponseEntity.ok(guestToGuesDtoConverter.convert(guest));
+            response.setSuccess(true);
+            response.setMessage("Guest created successfully");
+            response.setData(guestToGuesDtoConverter.convert(guest));
+
+            return ResponseEntity.ok(response);
         } catch (InvalidModel e) {
-            return ResponseEntity.badRequest().build();
+
+            response.setMessage(e.getMessage());
+            response.setSuccess(false);
+
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<GuestDto> updateGuest (@PathVariable Long id, @RequestBody GuestDto guestDto) {
+    public ResponseEntity<APIResponse<GuestDto>> updateGuest (@PathVariable Long id, @RequestBody GuestDto guestDto) {
+
+        APIResponse<GuestDto> response = new APIResponse<>();
 
         try {
             Guest guest = guestService.getById(id);
@@ -98,15 +126,25 @@ public class GuestController {
 
             guest = guestService.update(guest);
 
-            return ResponseEntity.ok(guestToGuesDtoConverter.convert(guest));
+            response.setSuccess(true);
+            response.setMessage("Guest updated successfully");
+            response.setData(guestToGuesDtoConverter.convert(guest));
+
+            return ResponseEntity.ok(response);
         } catch (InvalidModel e) {
-            return ResponseEntity.badRequest().build();
+
+            response.setMessage(e.getMessage());
+            response.setSuccess(false);
+
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGuest (@PathVariable Long id) {
+    public ResponseEntity<APIResponse<Void>> deleteGuest (@PathVariable Long id) {
+
+        APIResponse<Void> response = new APIResponse<>();
 
         try {
             Guest guest = guestService.getById(id);
@@ -117,9 +155,16 @@ public class GuestController {
 
             guestService.delete(guest);
 
-            return ResponseEntity.ok().build();
+            response.setSuccess(true);
+            response.setMessage("Guest deleted successfully");
+
+            return ResponseEntity.ok(response);
         } catch (InvalidModel e) {
-            return ResponseEntity.badRequest().build();
+
+            response.setMessage(e.getMessage());
+            response.setSuccess(false);
+
+            return ResponseEntity.badRequest().body(response);
         }
     }
 

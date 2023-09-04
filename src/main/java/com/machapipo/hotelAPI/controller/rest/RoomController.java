@@ -6,6 +6,7 @@ import com.machapipo.hotelAPI.command.converter.RoomToRoomDtoConverter;
 import com.machapipo.hotelAPI.exception.InvalidModel;
 import com.machapipo.hotelAPI.persistence.model.Room;
 import com.machapipo.hotelAPI.persistence.repo.RoomRepo;
+import com.machapipo.hotelAPI.utils.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,44 +47,70 @@ public class RoomController {
 
 
     @GetMapping({"/", "", "/list"})
-    public ResponseEntity<List<RoomDto>> getRooms () {
+    public ResponseEntity<APIResponse<List<RoomDto>>> getRooms () {
+
+        APIResponse<List<RoomDto>> response = new APIResponse<>();
 
         List<Room> rooms = roomRepo.findAll();
 
-        return ResponseEntity.ok(roomToRoomDtoConverter.convert(rooms));
+        response.setSuccess(true);
+        response.setMessage("Rooms found");
+        response.setData(roomToRoomDtoConverter.convert(rooms));
+
+        return ResponseEntity.ok(response);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoomDto> getRoom (@PathVariable Long id) {
+    public ResponseEntity<APIResponse<RoomDto>> getRoom (@PathVariable Long id) {
+
+        APIResponse<RoomDto> response = new APIResponse<>();
 
         Room room = roomRepo.findById(id).orElse(null);
 
         if (room == null) {
-            return ResponseEntity.notFound().build();
+            response.setSuccess(false);
+            response.setMessage("Room not found");
+
+            return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.ok(roomToRoomDtoConverter.convert(room));
+        response.setSuccess(true);
+        response.setMessage("Room found");
+        response.setData(roomToRoomDtoConverter.convert(room));
+
+        return ResponseEntity.ok(response);
     }
 
 
     @PostMapping({"/", ""})
-    public ResponseEntity<RoomDto> createRoom (@RequestBody RoomDto roomDto) {
+    public ResponseEntity<APIResponse<RoomDto>> createRoom (@RequestBody RoomDto roomDto) {
+
+        APIResponse<RoomDto> response = new APIResponse<>();
 
         try {
             roomDto.setId(null);
 
             Room room = roomRepo.save(Objects.requireNonNull(roomDtoToRoomConverter.convert(roomDto)));
 
-            return ResponseEntity.ok(roomToRoomDtoConverter.convert(room));
+            response.setSuccess(true);
+            response.setMessage("Room created successfully");
+            response.setData(roomToRoomDtoConverter.convert(room));
+
+            return ResponseEntity.ok(response);
         } catch (InvalidModel e) {
-            return ResponseEntity.badRequest().build();
+            response.setSuccess(false);
+            response.setMessage(e.getMessage());
+
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoomDto> updateRoom (@PathVariable Long id, @RequestBody RoomDto roomDto) {
+    public ResponseEntity<APIResponse<RoomDto>> updateRoom (@PathVariable Long id, @RequestBody RoomDto roomDto) {
+
+        APIResponse<RoomDto> response = new APIResponse<>();
 
         try {
             Room room = roomRepo.findById(id).orElse(null);
@@ -96,15 +123,24 @@ public class RoomController {
 
             room = roomRepo.save(room);
 
-            return ResponseEntity.ok(roomToRoomDtoConverter.convert(room));
+            response.setSuccess(true);
+            response.setMessage("Room updated successfully");
+            response.setData(roomToRoomDtoConverter.convert(room));
+
+            return ResponseEntity.ok(response);
         } catch (InvalidModel e) {
-            return ResponseEntity.badRequest().build();
+            response.setSuccess(false);
+            response.setMessage(e.getMessage());
+
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<RoomDto> deleteRoom (@PathVariable Long id) {
+    public ResponseEntity<APIResponse<RoomDto>> deleteRoom (@PathVariable Long id) {
+
+        APIResponse<RoomDto> response = new APIResponse<>();
 
         try {
             Room room = roomRepo.findById(id).orElse(null);
@@ -115,9 +151,16 @@ public class RoomController {
 
             roomRepo.delete(room);
 
-            return ResponseEntity.ok(roomToRoomDtoConverter.convert(room));
+            response.setSuccess(true);
+            response.setMessage("Room deleted successfully");
+            response.setData(roomToRoomDtoConverter.convert(room));
+
+            return ResponseEntity.ok(response);
         } catch (InvalidModel e) {
-            return ResponseEntity.badRequest().build();
+            response.setSuccess(false);
+            response.setMessage(e.getMessage());
+
+            return ResponseEntity.badRequest().body(response);
         }
 
     }

@@ -29,8 +29,17 @@ public class ModelValidator {
         if (guest.getEmail() == null || guest.getEmail().isEmpty() || !validateEmail(guest.getEmail())) {
             return false;
         }
+        if (guest.getPhoneNumber() != null || guest.getPhoneNumber().isEmpty()) {
+            return false;
+        }
+        if (guest.getCheckedIn() == null) {
+            return false;
+        }
+        if (guest.getCheckedIn() && guest.getRoom() == null) {
+            return false;
+        }
 
-        return guest.getPhoneNumber() != null && !guest.getPhoneNumber().isEmpty();
+        return guest.getCheckedIn() || guest.getRoom() == null;
     }
 
 

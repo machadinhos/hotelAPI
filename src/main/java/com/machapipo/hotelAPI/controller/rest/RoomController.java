@@ -102,7 +102,7 @@ public class RoomController {
             response.setSuccess(false);
             response.setMessage(e.getMessage());
 
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok(response);
         }
     }
 
@@ -132,7 +132,7 @@ public class RoomController {
             response.setSuccess(false);
             response.setMessage(e.getMessage());
 
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok(response);
         }
     }
 
@@ -160,7 +160,7 @@ public class RoomController {
             response.setSuccess(false);
             response.setMessage(e.getMessage());
 
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok(response);
         }
 
     }

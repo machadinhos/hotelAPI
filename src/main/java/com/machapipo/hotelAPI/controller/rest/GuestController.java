@@ -102,7 +102,7 @@ public class GuestController {
             response.setMessage(e.getMessage());
             response.setSuccess(false);
 
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok(response);
         }
     }
 
@@ -134,7 +134,7 @@ public class GuestController {
             response.setMessage(e.getMessage());
             response.setSuccess(false);
 
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok(response);
         }
     }
 
@@ -161,7 +161,7 @@ public class GuestController {
             response.setMessage(e.getMessage());
             response.setSuccess(false);
 
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok(response);
         }
     }
 

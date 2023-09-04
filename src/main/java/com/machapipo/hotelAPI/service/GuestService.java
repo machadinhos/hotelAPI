@@ -75,7 +75,11 @@ public class GuestService implements GenericService<Guest> {
 
 
     @Override
-    public void delete (Guest guest) {
+    public void delete (Guest guest) throws InvalidGuest {
+
+        if (guestRepo.findById(guest.getId()).orElse(null) == null) {
+            throw new InvalidGuest("Guest not found");
+        }
 
         guestRepo.delete(guest);
     }
@@ -84,12 +88,12 @@ public class GuestService implements GenericService<Guest> {
     private void validateGuest (Guest guest) {
 
         if (!ModelValidator.validateGuest(guest)) {
-            throw new InvalidGuest();
+            throw new InvalidGuest("Invalid guest");
         }
 
         if (guest.getRoom() != null) {
             if (!guest.getRoom().getAvailable() && guest.getRoom().getGuest() != guest) {
-                throw new InvalidGuest();
+                throw new InvalidGuest("Room not available");
             }
 
             guest.getRoom().setAvailable(false);

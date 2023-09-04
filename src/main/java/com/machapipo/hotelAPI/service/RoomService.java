@@ -75,7 +75,11 @@ public class RoomService implements GenericService<Room> {
 
 
     @Override
-    public void delete (Room room) {
+    public void delete (Room room) throws InvalidRoom {
+
+        if (roomRepo.findById(room.getId()).orElse(null) == null) {
+            throw new InvalidRoom("Room not found");
+        }
 
         roomRepo.delete(room);
     }
@@ -84,12 +88,12 @@ public class RoomService implements GenericService<Room> {
     private void validateRoom (Room room) {
 
         if (!ModelValidator.validateRoom(room)) {
-            throw new InvalidRoom();
+            throw new InvalidRoom("Invalid room");
         }
 
         if (room.getGuest() != null) {
             if (room.getGuest().getCheckedIn() && room.getGuest().getRoom() != room) {
-                throw new InvalidRoom();
+                throw new InvalidRoom("Guest already checked in");
             }
 
             room.getGuest().setCheckedIn(true);

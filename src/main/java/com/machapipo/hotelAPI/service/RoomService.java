@@ -59,9 +59,7 @@ public class RoomService implements GenericService<Room> {
     @Override
     public Room create (Room room) throws InvalidRoom {
 
-        if (!ModelValidator.validateRoom(room)) {
-            throw new InvalidRoom();
-        }
+        validateRoom(room);
 
         return roomRepo.save(room);
     }
@@ -70,16 +68,7 @@ public class RoomService implements GenericService<Room> {
     @Override
     public Room update (Room room) throws InvalidRoom {
 
-        if (!ModelValidator.validateRoom(room)) {
-            throw new InvalidRoom();
-        }
-
-        if (room.getGuest() != null) {
-            room.getGuest().setCheckedIn(true);
-            room.getGuest().setRoom(room);
-
-            guestRepo.save(room.getGuest());
-        }
+        validateRoom(room);
 
         return roomRepo.save(room);
     }
@@ -89,6 +78,25 @@ public class RoomService implements GenericService<Room> {
     public void delete (Room room) {
 
         roomRepo.delete(room);
+    }
+
+
+    private void validateRoom (Room room) {
+
+        if (!ModelValidator.validateRoom(room)) {
+            throw new InvalidRoom();
+        }
+
+        if (room.getGuest() != null) {
+            if (room.getGuest().getCheckedIn() && room.getGuest().getRoom() != room) {
+                throw new InvalidRoom();
+            }
+
+            room.getGuest().setCheckedIn(true);
+            room.getGuest().setRoom(room);
+
+            guestRepo.save(room.getGuest());
+        }
     }
 
 }

@@ -59,10 +59,7 @@ public class GuestService implements GenericService<Guest> {
     @Override
     public Guest create (Guest guest) throws InvalidGuest {
 
-        if (!ModelValidator.validateGuest(guest)) {
-
-            throw new InvalidGuest();
-        }
+        validateGuest(guest);
 
         return guestRepo.save(guest);
     }
@@ -71,16 +68,7 @@ public class GuestService implements GenericService<Guest> {
     @Override
     public Guest update (Guest guest) throws InvalidGuest {
 
-        if (!ModelValidator.validateGuest(guest)) {
-            throw new InvalidGuest();
-        }
-
-        if (guest.getRoom() != null) {
-            guest.getRoom().setAvailable(false);
-            guest.getRoom().setGuest(guest);
-
-            roomRepo.save(guest.getRoom());
-        }
+        validateGuest(guest);
 
         return guestRepo.save(guest);
     }
@@ -90,6 +78,25 @@ public class GuestService implements GenericService<Guest> {
     public void delete (Guest guest) {
 
         guestRepo.delete(guest);
+    }
+
+
+    private void validateGuest (Guest guest) {
+
+        if (!ModelValidator.validateGuest(guest)) {
+            throw new InvalidGuest();
+        }
+
+        if (guest.getRoom() != null) {
+            if (!guest.getRoom().getAvailable() && guest.getRoom().getGuest() != guest) {
+                throw new InvalidGuest();
+            }
+
+            guest.getRoom().setAvailable(false);
+            guest.getRoom().setGuest(guest);
+
+            roomRepo.save(guest.getRoom());
+        }
     }
 
 }

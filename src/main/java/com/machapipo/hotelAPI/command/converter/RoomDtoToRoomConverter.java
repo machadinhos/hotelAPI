@@ -46,7 +46,9 @@ public class RoomDtoToRoomConverter extends AbstractConverter<RoomDto, Room> {
         room.setRoomNumber(source.getRoomNumber());
         room.setPrice(source.getPrice());
         room.setAvailable(source.getAvailable());
-        room.setGuest(guestService.getById(source.getGuestId()));
+        if (source.getGuestId() != null) {
+            room.setGuest(guestService.getById(source.getGuestId()));
+        }
 
         try {
             room.setRoomType(RoomType.valueOf(source.getRoomType()));

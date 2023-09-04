@@ -18,7 +18,9 @@ public class GuestToGuesDtoConverter extends AbstractConverter<Guest, GuestDto> 
         guestDto.setEmail(source.getEmail());
         guestDto.setPhoneNumber(source.getPhoneNumber());
         guestDto.setCheckedIn(source.getCheckedIn());
-        guestDto.setRoomId(source.getRoom().getId());
+        if (source.getRoom() != null) {
+            guestDto.setRoomId(source.getRoom().getId());
+        }
 
         return guestDto;
     }

@@ -2,22 +2,20 @@ package com.machapipo.hotelAPI.utils;
 
 public class APIResponse<T> {
 
-    private final Boolean success;
-    private final String message;
-    private final T data;
-
-
-    public APIResponse (Boolean success, String message, T data) {
-
-        this.success = success;
-        this.message = message;
-        this.data = data;
-    }
+    private Boolean success;
+    private String message;
+    private T data;
 
 
     public Boolean getSuccess () {
 
         return success;
+    }
+
+
+    public void setSuccess (Boolean success) {
+
+        this.success = success;
     }
 
 
@@ -27,9 +25,21 @@ public class APIResponse<T> {
     }
 
 
+    public void setMessage (String message) {
+
+        this.message = message;
+    }
+
+
     public T getData () {
 
         return data;
+    }
+
+
+    public void setData (T data) {
+
+        this.data = data;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.machapipo.hotelAPI.converter;
+package com.machapipo.hotelAPI.command.converter;
 
 import com.machapipo.hotelAPI.command.GuestDto;
 import com.machapipo.hotelAPI.persistence.model.Guest;
@@ -17,6 +17,8 @@ public class GuestToGuesDtoConverter extends AbstractConverter<Guest, GuestDto> 
         guestDto.setLastName(source.getLastName());
         guestDto.setEmail(source.getEmail());
         guestDto.setPhoneNumber(source.getPhoneNumber());
+        guestDto.setCheckedIn(source.getCheckedIn());
+        guestDto.setRoomId(source.getRoom().getId());
 
         return guestDto;
     }

@@ -1,4 +1,4 @@
-package com.machapipo.hotelAPI.converter;
+package com.machapipo.hotelAPI.command.converter;
 
 import com.machapipo.hotelAPI.command.RoomDto;
 import com.machapipo.hotelAPI.persistence.model.Room;
@@ -17,6 +17,7 @@ public class RoomToRoomDtoConverter extends AbstractConverter<Room, RoomDto> {
         roomDto.setPrice(source.getPrice());
         roomDto.setAvailable(source.getAvailable());
         roomDto.setRoomType(source.getRoomType().getRoomType());
+        roomDto.setGuestId(source.getGuest().getId());
 
         return roomDto;
     }

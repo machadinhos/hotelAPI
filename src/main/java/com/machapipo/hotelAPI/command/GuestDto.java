@@ -7,6 +7,8 @@ public class GuestDto {
     private String lastName;
     private String email;
     private String phoneNumber;
+    private Boolean checkedIn;
+    private Long roomId;
 
 
     public Long getId () {
@@ -66,6 +68,30 @@ public class GuestDto {
     public void setPhoneNumber (String phoneNumber) {
 
         this.phoneNumber = phoneNumber;
+    }
+
+
+    public Boolean getCheckedIn () {
+
+        return checkedIn;
+    }
+
+
+    public void setCheckedIn (Boolean checkedIn) {
+
+        this.checkedIn = checkedIn;
+    }
+
+
+    public Long getRoomId () {
+
+        return roomId;
+    }
+
+
+    public void setRoomId (Long roomId) {
+
+        this.roomId = roomId;
     }
 
 }

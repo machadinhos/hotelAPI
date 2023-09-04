@@ -1,8 +1,8 @@
 package com.machapipo.hotelAPI.controller.rest;
 
 import com.machapipo.hotelAPI.command.RoomDto;
-import com.machapipo.hotelAPI.converter.RoomDtoToRoomConverter;
-import com.machapipo.hotelAPI.converter.RoomToRoomDtoConverter;
+import com.machapipo.hotelAPI.command.converter.RoomDtoToRoomConverter;
+import com.machapipo.hotelAPI.command.converter.RoomToRoomDtoConverter;
 import com.machapipo.hotelAPI.persistence.model.Room;
 import com.machapipo.hotelAPI.persistence.repo.RoomRepo;
 import org.springframework.beans.factory.annotation.Autowired;

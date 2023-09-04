@@ -1,8 +1,8 @@
 package com.machapipo.hotelAPI.controller.rest;
 
 import com.machapipo.hotelAPI.command.GuestDto;
-import com.machapipo.hotelAPI.converter.GuestDtoToGuestConverter;
-import com.machapipo.hotelAPI.converter.GuestToGuesDtoConverter;
+import com.machapipo.hotelAPI.command.converter.GuestDtoToGuestConverter;
+import com.machapipo.hotelAPI.command.converter.GuestToGuesDtoConverter;
 import com.machapipo.hotelAPI.persistence.model.Guest;
 import com.machapipo.hotelAPI.service.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;

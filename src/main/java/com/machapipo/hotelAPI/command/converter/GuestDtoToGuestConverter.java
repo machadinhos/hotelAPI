@@ -1,8 +1,9 @@
-package com.machapipo.hotelAPI.converter;
+package com.machapipo.hotelAPI.command.converter;
 
 import com.machapipo.hotelAPI.command.GuestDto;
 import com.machapipo.hotelAPI.persistence.model.Guest;
 import com.machapipo.hotelAPI.service.GuestService;
+import com.machapipo.hotelAPI.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,12 +11,20 @@ import org.springframework.stereotype.Component;
 public class GuestDtoToGuestConverter extends AbstractConverter<GuestDto, Guest> {
 
     private GuestService guestService;
+    private RoomService roomService;
 
 
     @Autowired
     public void setGuestService (GuestService guestService) {
 
         this.guestService = guestService;
+    }
+
+
+    @Autowired
+    public void setRoomService (RoomService roomService) {
+
+        this.roomService = roomService;
     }
 
 
@@ -37,6 +46,8 @@ public class GuestDtoToGuestConverter extends AbstractConverter<GuestDto, Guest>
         guest.setLastName(source.getLastName());
         guest.setEmail(source.getEmail());
         guest.setPhoneNumber(source.getPhoneNumber());
+        guest.setCheckedIn(source.getCheckedIn());
+        guest.setRoom(roomService.getById(source.getRoomId()));
 
         return guest;
     }

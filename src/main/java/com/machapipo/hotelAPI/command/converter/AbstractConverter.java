@@ -1,4 +1,4 @@
-package com.machapipo.hotelAPI.converter;
+package com.machapipo.hotelAPI.command.converter;
 
 import org.springframework.core.convert.converter.Converter;
 

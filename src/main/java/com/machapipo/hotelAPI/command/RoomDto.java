@@ -7,6 +7,7 @@ public class RoomDto {
     private Double price;
     private Boolean isAvailable;
     private String roomType;
+    private Long guestId;
 
 
     public Long getId () {
@@ -66,6 +67,18 @@ public class RoomDto {
     public void setRoomType (String roomType) {
 
         this.roomType = roomType;
+    }
+
+
+    public Long getGuestId () {
+
+        return guestId;
+    }
+
+
+    public void setGuestId (Long guestId) {
+
+        this.guestId = guestId;
     }
 
 }

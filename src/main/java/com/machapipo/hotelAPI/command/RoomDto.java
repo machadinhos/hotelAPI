@@ -1,6 +1,6 @@
 package com.machapipo.hotelAPI.command;
 
-public class RoomDto {
+public class RoomDto implements DtoModel {
 
     private Long id;
     private Integer roomNumber;

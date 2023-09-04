@@ -29,7 +29,7 @@ public class ModelValidator {
         if (guest.getEmail() == null || guest.getEmail().isEmpty() || !validateEmail(guest.getEmail())) {
             return false;
         }
-        if (guest.getPhoneNumber() != null || guest.getPhoneNumber().isEmpty()) {
+        if (guest.getPhoneNumber() == null || guest.getPhoneNumber().isEmpty()) {
             return false;
         }
         if (guest.getCheckedIn() == null) {

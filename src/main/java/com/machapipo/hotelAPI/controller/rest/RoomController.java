@@ -3,6 +3,7 @@ package com.machapipo.hotelAPI.controller.rest;
 import com.machapipo.hotelAPI.command.RoomDto;
 import com.machapipo.hotelAPI.command.converter.RoomDtoToRoomConverter;
 import com.machapipo.hotelAPI.command.converter.RoomToRoomDtoConverter;
+import com.machapipo.hotelAPI.exception.InvalidModel;
 import com.machapipo.hotelAPI.persistence.model.Room;
 import com.machapipo.hotelAPI.persistence.repo.RoomRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +71,12 @@ public class RoomController {
     public ResponseEntity<RoomDto> createRoom (@RequestBody RoomDto roomDto) {
 
         try {
+            roomDto.setId(null);
+
             Room room = roomRepo.save(Objects.requireNonNull(roomDtoToRoomConverter.convert(roomDto)));
 
             return ResponseEntity.ok(roomToRoomDtoConverter.convert(room));
-        } catch (Exception e) {
+        } catch (InvalidModel e) {
             return ResponseEntity.badRequest().build();
         }
     }
@@ -94,7 +97,7 @@ public class RoomController {
             room = roomRepo.save(room);
 
             return ResponseEntity.ok(roomToRoomDtoConverter.convert(room));
-        } catch (Exception e) {
+        } catch (InvalidModel e) {
             return ResponseEntity.badRequest().build();
         }
     }
@@ -113,7 +116,7 @@ public class RoomController {
             roomRepo.delete(room);
 
             return ResponseEntity.ok(roomToRoomDtoConverter.convert(room));
-        } catch (Exception e) {
+        } catch (InvalidModel e) {
             return ResponseEntity.badRequest().build();
         }
 

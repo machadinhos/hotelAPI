@@ -29,12 +29,12 @@ public class GuestDtoToGuestConverter extends AbstractConverter<GuestDto, Guest>
 
 
     @Override
-    public Guest convert (GuestDto source) {
+    public Guest convert (GuestDto guestDto) {
 
         Guest guest;
 
-        if (source.getId() != null) {
-            guest = guestService.getById(source.getId());
+        if (guestDto.getId() != null) {
+            guest = guestService.getById(guestDto.getId());
             if (guest == null) {
                 guest = new Guest();
             }
@@ -42,13 +42,13 @@ public class GuestDtoToGuestConverter extends AbstractConverter<GuestDto, Guest>
             guest = new Guest();
         }
 
-        guest.setFirstName(source.getFirstName());
-        guest.setLastName(source.getLastName());
-        guest.setEmail(source.getEmail());
-        guest.setPhoneNumber(source.getPhoneNumber());
-        guest.setCheckedIn(source.getCheckedIn());
-        if (source.getRoomId() != null) {
-            guest.setRoom(roomService.getById(source.getRoomId()));
+        guest.setFirstName(guestDto.getFirstName());
+        guest.setLastName(guestDto.getLastName());
+        guest.setEmail(guestDto.getEmail());
+        guest.setPhoneNumber(guestDto.getPhoneNumber());
+        guest.setCheckedIn(guestDto.getCheckedIn());
+        if (guestDto.getRoomId() != null) {
+            guest.setRoom(roomService.getById(guestDto.getRoomId()));
         }
 
         return guest;

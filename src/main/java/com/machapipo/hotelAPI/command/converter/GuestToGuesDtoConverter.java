@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 public class GuestToGuesDtoConverter extends AbstractConverter<Guest, GuestDto> {
 
     @Override
-    public GuestDto convert (Guest source) {
+    public GuestDto convert (Guest guest) {
 
         GuestDto guestDto = new GuestDto();
 
-        guestDto.setId(source.getId());
-        guestDto.setFirstName(source.getFirstName());
-        guestDto.setLastName(source.getLastName());
-        guestDto.setEmail(source.getEmail());
-        guestDto.setPhoneNumber(source.getPhoneNumber());
-        guestDto.setCheckedIn(source.getCheckedIn());
-        if (source.getRoom() != null) {
-            guestDto.setRoomId(source.getRoom().getId());
+        guestDto.setId(guest.getId());
+        guestDto.setFirstName(guest.getFirstName());
+        guestDto.setLastName(guest.getLastName());
+        guestDto.setEmail(guest.getEmail());
+        guestDto.setPhoneNumber(guest.getPhoneNumber());
+        guestDto.setCheckedIn(guest.getCheckedIn());
+        if (guest.getRoom() != null) {
+            guestDto.setRoomId(guest.getRoom().getId());
         }
 
         return guestDto;

@@ -31,11 +31,11 @@ public class RoomDtoToRoomConverter extends AbstractConverter<RoomDto, Room> {
 
 
     @Override
-    public Room convert (RoomDto source) {
+    public Room convert (RoomDto roomDto) {
 
         Room room;
-        if (source.getId() != null) {
-            room = roomService.getById(source.getId());
+        if (roomDto.getId() != null) {
+            room = roomService.getById(roomDto.getId());
             if (room == null) {
                 room = new Room();
             }
@@ -43,15 +43,15 @@ public class RoomDtoToRoomConverter extends AbstractConverter<RoomDto, Room> {
             room = new Room();
         }
 
-        room.setRoomNumber(source.getRoomNumber());
-        room.setPrice(source.getPrice());
-        room.setAvailable(source.getAvailable());
-        if (source.getGuestId() != null) {
-            room.setGuest(guestService.getById(source.getGuestId()));
+        room.setRoomNumber(roomDto.getRoomNumber());
+        room.setPrice(roomDto.getPrice());
+        room.setAvailable(roomDto.getAvailable());
+        if (roomDto.getGuestId() != null) {
+            room.setGuest(guestService.getById(roomDto.getGuestId()));
         }
 
         try {
-            room.setRoomType(RoomType.valueOf(source.getRoomType()));
+            room.setRoomType(RoomType.valueOf(roomDto.getRoomType()));
         } catch (Exception e) {
             throw new InvalidRoom("Invalid room");
         }

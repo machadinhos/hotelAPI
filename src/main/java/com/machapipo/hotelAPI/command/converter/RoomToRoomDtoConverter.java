@@ -8,17 +8,17 @@ import org.springframework.stereotype.Component;
 public class RoomToRoomDtoConverter extends AbstractConverter<Room, RoomDto> {
 
     @Override
-    public RoomDto convert (Room source) {
+    public RoomDto convert (Room room) {
 
         RoomDto roomDto = new RoomDto();
 
-        roomDto.setId(source.getId());
-        roomDto.setRoomNumber(source.getRoomNumber());
-        roomDto.setPrice(source.getPrice());
-        roomDto.setAvailable(source.getAvailable());
-        roomDto.setRoomType(source.getRoomType().getRoomType());
-        if (source.getGuest() != null) {
-            roomDto.setGuestId(source.getGuest().getId());
+        roomDto.setId(room.getId());
+        roomDto.setRoomNumber(room.getRoomNumber());
+        roomDto.setPrice(room.getPrice());
+        roomDto.setAvailable(room.getAvailable());
+        roomDto.setRoomType(room.getRoomType().getRoomType());
+        if (room.getGuest() != null) {
+            roomDto.setGuestId(room.getGuest().getId());
         }
 
         return roomDto;

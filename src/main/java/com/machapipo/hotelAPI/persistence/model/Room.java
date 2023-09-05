@@ -11,7 +11,7 @@ public class Room extends AbstractModel {
     @Column
     private Double price;
     @Column
-    private Boolean isAvailable;
+    private Boolean available;
     @Column
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
@@ -45,13 +45,13 @@ public class Room extends AbstractModel {
 
     public Boolean getAvailable () {
 
-        return isAvailable;
+        return available;
     }
 
 
     public void setAvailable (Boolean available) {
 
-        isAvailable = available;
+        this.available = available;
     }
 
 

@@ -48,6 +48,8 @@ public class RoomDtoToRoomConverter extends AbstractConverter<RoomDto, Room> {
         room.setAvailable(roomDto.getAvailable());
         if (roomDto.getGuestId() != null) {
             room.setGuest(guestService.getById(roomDto.getGuestId()));
+        } else {
+            room.setGuest(null);
         }
 
         try {

@@ -2,6 +2,7 @@ package com.machapipo.hotelAPI.service;
 
 import com.machapipo.hotelAPI.exception.InvalidGuest;
 import com.machapipo.hotelAPI.persistence.model.Guest;
+import com.machapipo.hotelAPI.persistence.model.Room;
 import com.machapipo.hotelAPI.persistence.repo.GuestRepo;
 import com.machapipo.hotelAPI.persistence.repo.RoomRepo;
 import com.machapipo.hotelAPI.utils.ModelValidator;
@@ -36,7 +37,7 @@ public class GuestService implements GenericService<Guest> {
     @Transactional(readOnly = true)
     public List<Guest> getNotCheckedIn () {
 
-        return guestRepo.findNotCheckedIn();
+        return guestRepo.findByCheckedInFalse();
     }
 
 
@@ -61,6 +62,17 @@ public class GuestService implements GenericService<Guest> {
 
         validateGuest(guest);
 
+        if (guest.getRoom() != null) {
+            if (!guest.getRoom().getAvailable() && guest.getRoom().getGuest() != guest) {
+                throw new InvalidGuest("Room not available");
+            }
+
+            guest.getRoom().setAvailable(false);
+            guest.getRoom().setGuest(guest);
+
+            roomRepo.save(guest.getRoom());
+        }
+
         return guestRepo.save(guest);
     }
 
@@ -69,6 +81,26 @@ public class GuestService implements GenericService<Guest> {
     public Guest update (Guest guest) throws InvalidGuest {
 
         validateGuest(guest);
+
+        if (guest.getRoom() != null) {
+            if (!guest.getRoom().getAvailable() && guest.getRoom().getGuest() != guest) {
+                throw new InvalidGuest("Room not available");
+            }
+
+            guest.getRoom().setAvailable(false);
+            guest.getRoom().setGuest(guest);
+
+            roomRepo.save(guest.getRoom());
+        } else {
+            Room room = roomRepo.findByIsAvailableTrueAndGuestId(guest.getId());
+
+            if (room != null) {
+                room.setAvailable(true);
+                room.setGuest(null);
+
+                roomRepo.save(room);
+            }
+        }
 
         return guestRepo.save(guest);
     }
@@ -81,6 +113,13 @@ public class GuestService implements GenericService<Guest> {
             throw new InvalidGuest("Guest not found");
         }
 
+        if (guest.getRoom() != null) {
+            guest.getRoom().setAvailable(true);
+            guest.getRoom().setGuest(null);
+
+            roomRepo.save(guest.getRoom());
+        }
+
         guestRepo.delete(guest);
     }
 
@@ -89,17 +128,6 @@ public class GuestService implements GenericService<Guest> {
 
         if (!ModelValidator.validateGuest(guest)) {
             throw new InvalidGuest("Invalid guest");
-        }
-
-        if (guest.getRoom() != null) {
-            if (!guest.getRoom().getAvailable() && guest.getRoom().getGuest() != guest) {
-                throw new InvalidGuest("Room not available");
-            }
-
-            guest.getRoom().setAvailable(false);
-            guest.getRoom().setGuest(guest);
-
-            roomRepo.save(guest.getRoom());
         }
     }
 

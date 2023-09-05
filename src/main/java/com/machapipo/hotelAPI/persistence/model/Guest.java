@@ -18,7 +18,7 @@ public class Guest extends AbstractModel {
     @Column
     private String phoneNumber;
     @Column
-    private Boolean isCheckedIn;
+    private Boolean checkedIn;
     @OneToOne
     private Room room;
 
@@ -73,13 +73,13 @@ public class Guest extends AbstractModel {
 
     public Boolean getCheckedIn () {
 
-        return isCheckedIn;
+        return checkedIn;
     }
 
 
     public void setCheckedIn (Boolean checkedIn) {
 
-        isCheckedIn = checkedIn;
+        this.checkedIn = checkedIn;
     }
 
 

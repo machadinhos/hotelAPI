@@ -81,6 +81,21 @@ public class GuestController {
     }
 
 
+    @GetMapping("/not-checked-in")
+    public ResponseEntity<APIResponse<List<GuestDto>>> getNotCheckedInGuests () {
+
+        APIResponse<List<GuestDto>> response = new APIResponse<>();
+
+        List<Guest> guests = guestService.getNotCheckedIn();
+
+        response.setSuccess(true);
+        response.setMessage("Guests found");
+        response.setData(guestToGuesDtoConverter.convert(guests));
+
+        return ResponseEntity.ok(response);
+    }
+
+
     @PostMapping({"/", ""})
     public ResponseEntity<APIResponse<GuestDto>> createGuest (@RequestBody GuestDto guestDto) {
 

@@ -80,6 +80,21 @@ public class RoomController {
     }
 
 
+    @GetMapping("/available")
+    public ResponseEntity<APIResponse<List<RoomDto>>> getAvailableRooms () {
+
+        APIResponse<List<RoomDto>> response = new APIResponse<>();
+
+        List<Room> rooms = roomService.getAvailable();
+
+        response.setSuccess(true);
+        response.setMessage("Rooms found");
+        response.setData(roomToRoomDtoConverter.convert(rooms));
+
+        return ResponseEntity.ok(response);
+    }
+
+
     @PostMapping({"/", ""})
     public ResponseEntity<APIResponse<RoomDto>> createRoom (@RequestBody RoomDto roomDto) {
 

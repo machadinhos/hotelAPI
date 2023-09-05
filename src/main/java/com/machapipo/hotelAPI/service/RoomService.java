@@ -37,7 +37,7 @@ public class RoomService implements GenericService<Room> {
     @Transactional(readOnly = true)
     public List<Room> getAvailable () {
 
-        return roomRepo.findByIsAvailableTrue();
+        return roomRepo.findByAvailableTrue();
     }
 
 

@@ -92,7 +92,7 @@ public class GuestService implements GenericService<Guest> {
 
             roomRepo.save(guest.getRoom());
         } else {
-            Room room = roomRepo.findByIsAvailableTrueAndGuestId(guest.getId());
+            Room room = roomRepo.findByAvailableTrueAndGuestId(guest.getId());
 
             if (room != null) {
                 room.setAvailable(true);

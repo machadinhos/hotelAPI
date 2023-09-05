@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface RoomRepo extends JpaRepository<Room, Long> {
 
-    List<Room> findByIsAvailableTrue ();
+    List<Room> findByAvailableTrue ();
 
-    Room findByIsAvailableTrueAndGuestId (Long id);
+    Room findByAvailableTrueAndGuestId (Long id);
 
 }

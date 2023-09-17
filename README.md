@@ -59,10 +59,11 @@ All endpoints are prefixed with `/hotel/api`.
 
 - Java 8
 - Maven
+- Spring
 - Spring Boot
-- Spring Web
-- Spring Data JPA
+- Hibernate
 - MySQL
+- Docker
 
 ## Author
 

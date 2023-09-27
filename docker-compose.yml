@@ -1,0 +1,18 @@
+version: '3'
+services:
+  mysql-db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: hotel
+      MYSQL_USER: hotel-manager
+      MYSQL_PASSWORD: hotel1010
+    ports:
+      - "3306:3306"
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"

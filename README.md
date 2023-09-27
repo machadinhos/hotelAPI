@@ -64,6 +64,7 @@ All endpoints are prefixed with `/hotel/api`.
 - Hibernate
 - MySQL
 - Docker
+    - docker-compose up
 
 ## Author
 

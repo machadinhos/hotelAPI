@@ -1,18 +1,28 @@
 version: '3'
 services:
   mysql-db:
-    image: mysql:latest
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: hotel
       MYSQL_USER: hotel-manager
       MYSQL_PASSWORD: hotel1010
-    ports:
-      - "3306:3306"
+      TZ: "Portugal"
+    networks:
+      - hotel-network
 
-  spring-app:
+  hotel-app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    networks:
+      - hotel-network
+    depends_on:
+      - mysql-db
+    command: >
+      sh -c '/wait-for-it.sh -t 60 mysql-db:3306 -- java -jar hotelAPI.jar'
+
+networks:
+  hotel-network:

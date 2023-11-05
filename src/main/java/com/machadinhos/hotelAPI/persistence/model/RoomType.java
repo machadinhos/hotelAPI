@@ -2,9 +2,9 @@ package com.machadinhos.hotelAPI.persistence.model;
 
 public enum RoomType {
 
-    Standard("Standard"),
-    Deluxe("Deluxe"),
-    Suite("Suite");
+    STANDARD("Standard"),
+    DELUXE("Deluxe"),
+    SUITE("Suite");
 
     private final String roomType;
 

@@ -56,7 +56,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.machapipo.hotelAPI.HotelApiApplication</mainClass>
+                            <mainClass>com.machadinhos.hotelAPI.HotelApiApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

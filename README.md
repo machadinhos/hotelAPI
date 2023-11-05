@@ -29,7 +29,7 @@ It is a RESTful API that allows hotel staff to:
 
 1. Clone the repository
 2. Open the project in your IDE of choice
-3. Run the [HotelApiApplication class](src/main/java/com/machapipo/hotelAPI/HotelApiApplication.java)
+3. Run the [HotelApiApplication class](src/main/java/com/machadinhos/hotelAPI/HotelApiApplication.java)
 
 ## Endpoints
 
